@@ -1,8 +1,11 @@
 import requests
 import json
+import re
         
 class LongPoll():
 	
+    commands = {}
+
     def __init__(self, token, group_id):
 		
         self.key = None
@@ -56,8 +59,28 @@ class LongPoll():
         while True:
             for event in self.check():
                 yield event
-         
-        
+
+    def start(self):
+        for event in self.listen():
+            if event['type'] == 'message_new':
+                text = event['object']['text']
+                matches = list(filter(lambda x: re.search(x, text) != None, list(self.commands.keys())))
+                if len(matches) != 0:
+                    self.commands[matches[0]](self.createContext(event['object']))
+
+    def createContext(self, obj):
+        return {
+            "reply": lambda msg: self.sendMessage(obj['peer_id'], msg),
+            "message": obj.copy()
+        }
+
+    def command(self, regex, callback): 
+        callbackType = str(type(callback))
+        if 'function' not in callbackType:
+            raise Exception(f"Callback must be a function. Value: {callbackType}")
+
+        self.commands[regex] = callback
+
     def method(self, method, values):
     
         values = values.copy() if values else {}
