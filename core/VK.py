@@ -80,11 +80,11 @@ class LongPoll:
                 text = event['object']['text']
                 matches = list(filter(lambda x: re.search(x, text) is not None, list(self.commands.keys())))
                 if len(matches) != 0:
-                    self.commands[matches[0]](Context(self.sendMessage, event['object']))
+                    self.commands[matches[0]](Context(self.send_message, event['object']))
 
     def create_context(self, obj):
         return {
-            "reply": lambda msg: self.sendMessage(obj['peer_id'], msg),
+            "reply": lambda msg: self.send_message(obj['peer_id'], msg),
             "message": obj.copy()
         }
 
@@ -112,9 +112,9 @@ class LongPoll:
         else:
             return response
             
-    def sendMessage(self, user_id, text):
+    def send_message(self, peer_id, text):
         values = {
-            'user_id': user_id,
+            'peer_id': peer_id,
             'message': text
         }
         
