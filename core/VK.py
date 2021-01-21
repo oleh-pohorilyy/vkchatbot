@@ -1,6 +1,6 @@
 import requests
 import re
-
+from Users import Users
 
 class Context:
 
@@ -77,10 +77,12 @@ class LongPoll:
     def start(self):
         for event in self.listen():
             if event['type'] == 'message_new':
+                context = Context(self.send_message, event['object'])
+                Users.check_registered(context.message["from_id"])
                 text = event['object']['text']
                 matches = list(filter(lambda x: re.search(x, text) is not None, list(self.commands.keys())))
                 if len(matches) != 0:
-                    self.commands[matches[0]](Context(self.send_message, event['object']))
+                    self.commands[matches[0]](context)
 
     def create_context(self, obj):
         return {
