@@ -8,6 +8,6 @@ with open("config.json") as f:
 
 bot = LongPoll(config["token"], config["group_id"])
 
-bot.command("(?i)^тест", lambda ctx: ctx["reply"]("DAROVA"))
+bot.command("(?i)^тест", lambda ctx: ctx.reply('success!'))
 
 bot.start()

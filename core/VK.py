@@ -1,6 +1,12 @@
 import requests
 import json
 import re
+
+class Context():
+
+    def __init__(self, sendMessage, obj):
+        self.message = obj.copy()
+        self.reply = lambda msg: sendMessage(obj["from_id"], msg)
         
 class LongPoll():
 	
@@ -15,7 +21,7 @@ class LongPoll():
         
         self.session = requests.Session()
         
-        self.v = '5.74'
+        self.v = '5.80'
         self.token = token
         self.id = group_id
         
@@ -66,7 +72,7 @@ class LongPoll():
                 text = event['object']['text']
                 matches = list(filter(lambda x: re.search(x, text) != None, list(self.commands.keys())))
                 if len(matches) != 0:
-                    self.commands[matches[0]](self.createContext(event['object']))
+                    self.commands[matches[0]](Context(self.sendMessage, event['object']))
 
     def createContext(self, obj):
         return {
