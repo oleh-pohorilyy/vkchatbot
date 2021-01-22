@@ -12,7 +12,7 @@ class Users:
     @staticmethod
     def load_users():
         if not os.path.exists(Users.users_path):
-            with open(Users.users_path, "w") as f:
+            with open(Users.users_path, "w", encoding="urf-8") as f:
                 json.dump([], f)
         with Users.usermap_path.open() as f:
             Users.usermap = json.load(f)
@@ -49,7 +49,7 @@ class Users:
 
     @staticmethod
     def save_users_to_file():
-        with open(Users.users_path, "w") as f:
+        with open(Users.users_path, "w", encoding="utf-8") as f:
             json.dump(Users.list, f)
 
     @staticmethod

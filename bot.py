@@ -9,7 +9,7 @@ with open("config.json") as f:
     config = json.load(f)
 
 
-bot = LongPoll(config["token"], config["group_id"])
+bot = LongPoll(config["token"], config["group_id"], config["use_proxy"])
 
 bot.command("(?i)^тест", lambda ctx: ctx.reply('success!'))
 bot.command("(?i)^профиль", Commands.profile)
