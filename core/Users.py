@@ -51,3 +51,23 @@ class Users:
     def save_users_to_file():
         with open(Users.users_path, "w") as f:
             json.dump(Users.list, f)
+
+    @staticmethod
+    def change_value(id, key, value):
+        for user in Users.list:
+            if user["id"] == id:
+                user[key] = value
+        Users.save_users_to_file()
+
+    @staticmethod
+    def change_users_template():
+        for user in Users.list:
+            blank = {}
+            for key in Users.usermap:
+                try:
+                    blank[key] = user[key]
+                except:
+                    blank[key] = Users.usermap[key]
+            user.clear()
+            user.update(blank)
+            Users.save_users_to_file()
