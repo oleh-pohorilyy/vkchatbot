@@ -13,26 +13,23 @@ class Context:
 class LongPoll:
     commands = {}
 
-    def __init__(self, token, group_id):
-        #  PROXYREMOVE  #
-        self.ip = 'olegpogorili_mail_ru:5e60882a6a@45.13.192.215:30009'
-        self.proxies = {
-            'http': 'http://' + self.ip,
-            'https': 'http://' + self.ip
-        }
-        #  PROXYREMOVE END #
+    def __init__(self, token, group_id, use_proxy):
         self.key = None
         self.server = None
         self.ts = 0
         self.wait = 20
-        
-        self.session = requests.Session()
-        #  PROXYREMOVE  #
-        self.session.proxies.update(self.proxies)
-        #  PROXYREMOVE END  #
         self.v = '5.80'
         self.token = token
         self.id = group_id
+        
+        self.session = requests.Session()
+        if use_proxy: # for ukraine (configurated in config.json)
+            self.ip = 'XxEtd3:VDnW5o@181.177.84.41:9134'
+            self.proxies = {
+                'http': 'http://' + self.ip,
+                'https': 'http://' + self.ip
+            }
+            self.session.proxies.update(self.proxies)
         
         self.connect()
         
