@@ -2,6 +2,8 @@ import json
 import os
 from pathlib import Path
 import copy
+from Timer import timer_start
+
 
 class Users:
     usermap = {}
@@ -12,11 +14,11 @@ class Users:
     @staticmethod
     def load_users():
         if not os.path.exists(Users.users_path):
-            with open(Users.users_path, "w", encoding="urf-8") as f:
+            with open(Users.users_path, "w") as f:
                 json.dump([], f)
-        with Users.usermap_path.open() as f:
+        with Users.usermap_path.open("r", encoding="utf-8") as f:
             Users.usermap = json.load(f)
-        with Users.users_path.open() as f:
+        with Users.users_path.open("r", encoding="utf-8") as f:
             Users.list = json.load(f)
 
     @staticmethod
@@ -54,10 +56,7 @@ class Users:
 
     @staticmethod
     def change_value(id, key, value):
-        for user in Users.list:
-            if user["id"] == id:
-                user[key] = value
-        Users.save_users_to_file()
+        Users.get_by_id(id)[key] = value
 
     @staticmethod
     def change_users_template():
@@ -71,3 +70,9 @@ class Users:
             user.clear()
             user.update(blank)
             Users.save_users_to_file()
+
+    @staticmethod
+    def start():
+        Users.load_users()
+        Users.change_users_template()
+        timer_start(Users.save_users_to_file)

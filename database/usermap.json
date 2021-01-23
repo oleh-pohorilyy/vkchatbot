@@ -1,6 +1,12 @@
 {
   "id": 0,
-  "name": "name",
+  "name": "Прохожий",
   "bot_id": 0,
-  "balance": 0
+  "balance": 0,
+  "space": "===========",
+  "health": 100,
+  "weapon": "Руки",
+  "armor": "Обычная одежда",
+  "level": 1,
+  "space2": "==========="
 }

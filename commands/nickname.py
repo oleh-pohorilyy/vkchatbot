@@ -1,6 +1,6 @@
+from Users import Users
 def invoke(ctx):
     newname = ""
-    user = Users.get_by_id(ctx.message["from_id"])
     try:
         newname = ctx.message["text"].split()[1]
         ctx.reply("Ник успешно изменен.")
