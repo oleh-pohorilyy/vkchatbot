@@ -3,11 +3,17 @@ from Inventory import Inventory
 from Items import Items
 import re
 
+
 def invoke(ctx):
     text = ctx.message["text"]
     drop_info = re.search("(?i)выкинуть \d+", text)
-    if drop_info is not None: drop(ctx, drop_info.group())
-    else: show(ctx)
+    sort_info = re.search("(?i)сортировать", text)
+    if drop_info is not None:
+        drop(ctx, drop_info.group())
+    elif sort_info is not None:
+        sort(ctx)
+    else:
+        show(ctx)
 
 
 def show(ctx):
@@ -23,18 +29,26 @@ def show(ctx):
     else:
         ctx.reply("Ваш инвентарь пуст!")
 
+
 def drop(ctx, drop_info):
     user = Users.get_by_id(ctx.message["from_id"])
     drop_index = int(re.search("\d+", drop_info).group())-1
 
     try:
-        if drop_index <= 0: raise Exception()
+        if drop_index <= 0:
+            raise Exception()
 
         item_id = user["inventory"][drop_index]
         item_data = Items.get_by_id(item_id)
         is_removed = Inventory.remove(item_id, ctx.message["from_id"])
 
-        if(is_removed != True): raise Exception()
+        if not is_removed:
+            raise Exception()
         ctx.reply(f'Вы выбросили "{item_data["name"]}"')
     except:
         ctx.reply("Предмет не найден.")
+
+
+def sort(ctx):
+    Inventory.sort(ctx.message["from_id"])
+    show(ctx)

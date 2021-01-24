@@ -18,7 +18,7 @@ bot = LongPoll(
 
 bot.command("(?i)^профиль$", profile.invoke)
 bot.command("(?i)^ник \w+", nickname.invoke)
-bot.command("(?i)(^инвентарь$)|(^инвентарь выкинуть \d+)", inventory.invoke)
+bot.command("(?i)(^инвентарь$)|(^инвентарь выкинуть \d+)|(^инвентарь сортировать$)|(^инвентарь сорт$)", inventory.invoke)
 
 Items.start() # Loading items
 Users.start() # Loading users, running autosave, checking for new user structure 

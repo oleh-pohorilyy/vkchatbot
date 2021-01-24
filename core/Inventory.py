@@ -18,3 +18,8 @@ class Inventory:
             user["inventory"].remove(item_id)
             return True
         return False
+
+    @staticmethod
+    def sort(user_id):
+        user = Users.get_by_id(user_id)
+        user["inventory"].sort()

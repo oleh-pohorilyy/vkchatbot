@@ -18,7 +18,7 @@ def invoke(ctx):
                 }
     user = Users.get_by_id(ctx.message["from_id"])
     for key in user:
-        if key in ["id", "inventory", "max_inv_size"]:
+        if key in ["id", "inventory", "max_inv_size", "dropped_items"]:
             continue
         try:
             msg_text += fancy[key] + str(user[key]) + "\n"

@@ -3,16 +3,16 @@
   "name": "Прохожий",
   "bot_id": 0,
   "balance": 0,
-  "space": "===========",
-  "maxhealth": 100,
+  "space": "-~ໂƸ̴-~≈~-Ʒໃ-~",
   "health": 100,
-  "maxmana": 50,
   "mana": 50,
   "weapon": "Руки",
   "armor": "Обычная одежда",
   "level": 1,
-  "space2": "===========",
+  "space2": "-~ໂƸ̴-~≈~-Ʒໃ-~",
   "inventory": [],
   "dropped_items": [],
-  "max_inv_size": 15
+  "max_inv_size": 15,
+  "stats": {"maxhealth": 100, "maxmana": 50, "damage": [1, 7]},
+  "equipment": {"weapon": 7, "body": null, "legs": null, "accessory1": null, "accessory2": null}
 }
