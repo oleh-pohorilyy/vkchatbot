@@ -2,6 +2,7 @@ import requests
 import re
 from Users import Users
 from Context import Context
+from pathlib import Path
 
 class LongPoll:
     commands = {}
@@ -85,22 +86,37 @@ class LongPoll:
         values = values.copy() if values else {}
         values['access_token'] = self.token
         values['v'] = self.v
-        
+
         response = self.session.post(
             'https://api.vk.com/method/' + method,
             values
         ).json()
-        
+
         if 'error' in response:
             print('ERROR:\n' + response['error']['error_msg'])
             return False
         else:
             return response
+
+    def upload_photo(self, photo_path, peer_id):
+        upload_server_response = self.method('photos.getMessagesUploadServer', {"peer_id":peer_id, "scope":"photos"})
+        upload_url = dict(upload_server_response)["response"]["upload_url"]
+
+        with open(photo_path, 'rb') as photo:
+            response = self.session.post(upload_url, files={'file1':photo})
+
+        return dict(self.method('photos.saveMessagesPhoto', dict(response.json())))
             
-    def send_message(self, peer_id, text):
+    def send_message(self, peer_id, text, attachment = None):
         values = {
             'peer_id': peer_id,
             'message': text
         }
+        
+        if attachment is not None:
+            photo_path = Path(__file__).parent / "../assets/img/world_map.jpg"
+            photo = self.upload_photo(photo_path, peer_id)["response"][0]
+            print(f'photo{photo["owner_id"]}_{photo["id"]}')
+            values['attachment'] = f'photo{photo["owner_id"]}_{photo["id"]}'
         
         self.method('messages.send', values)

@@ -3,7 +3,7 @@ import json
 
 class Items:
 
-    dictionary = []
+    dictionary = {}
     items_path = Path(__file__).parent / "../database/items.json"
 
     @staticmethod
