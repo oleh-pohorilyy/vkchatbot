@@ -4,9 +4,14 @@
   "bot_id": 0,
   "balance": 0,
   "space": "===========",
+  "maxhealth": 100,
   "health": 100,
+  "maxmana": 50,
+  "mana": 50,
   "weapon": "Руки",
   "armor": "Обычная одежда",
   "level": 1,
-  "space2": "==========="
+  "space2": "===========",
+  "inventory": [],
+  "max_inv_size": 15
 }

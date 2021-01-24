@@ -13,9 +13,9 @@ with open("config.json") as f:
 bot = LongPoll(config["token"], config["group_id"], config["use_proxy"])
 
 bot.command("(?i)^тест ", lambda ctx: ctx.reply('success!'))
-bot.command("(?i)^профиль", profile.invoke)
+bot.command("(?i)^профиль$", profile.invoke)
 bot.command("(?i)^ник ", nickname.invoke)
-bot.command("(?i)^хуй ", lambda ctx: ctx.reply("ГЕРМАН БРУЕВ ВОПРОС"))
+bot.command("(?i)^инвентарь", inventory.invoke)
 
 Users.start()
 bot.start()

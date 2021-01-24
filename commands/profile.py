@@ -8,14 +8,17 @@ def invoke(ctx):
                 "balance": "🌕 Золотых: ",
                 "weapon": "🗡 Оружие: ",
                 "armor": "🛡 Броня: ",
-                "level": "🧿 Уровень: ",
+                "level": "⭐ Уровень: ",
                 "health": "❤ Здоровье: ",
                 "space": "",
-                "space2": ""
+                "space2": "",
+                "maxhealth": "❣ Максимальное здоровье: ",
+                "maxmana": "🧿 Максимальная мана: ",
+                "mana": "🌀 Мана: "
                 }
     user = Users.get_by_id(ctx.message["from_id"])
     for key in user:
-        if key in ["id"]:
+        if key in ["id", "inventory", "max_inv_size"]:
             continue
         try:
             msg_text += fancy[key] + str(user[key]) + "\n"

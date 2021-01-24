@@ -1,0 +1,8 @@
+{
+  "1": {"name": "Малое зелье лечения", "effect":  "HP +20%", "type":  "consumable", "price":  "10s", "max_stackable":  10},
+  "2": {"name": "Среднее зелье лечения", "effect":  "HP +35%", "type":  "consumable", "price":  "30s", "max_stackable":  10},
+  "3": {"name": "Большое зелье лечения", "effect":  "HP +50%", "type":  "consumable", "price":  "80s", "max_stackable":  10},
+  "4": {"name": "Малое зелье маны", "effect":  "MP +20%", "type":  "consumable", "price":  "10s", "max_stackable":  10},
+  "5": {"name": "Среднее зелье маны", "effect":  "MP +35%", "type":  "consumable", "price":  "30s", "max_stackable":  10},
+  "6": {"name": "Большое зелье маны", "effect":  "MP +50%", "type":  "consumable", "price":  "80s", "max_stackable":  10}
+}
