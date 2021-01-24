@@ -4,21 +4,11 @@ from pathlib import Path
 import copy
 from Timer import Timer
 
-
 class Users:
-    items = {}
     usermap = {}
     list = []
     users_path = Path(__file__).parent / "../database/users.json"
     usermap_path = Path(__file__).parent / "../database/usermap.json"
-    items_path = Path(__file__).parent / "../database/items.json"
-
-
-    @staticmethod
-    def load_items():
-        with Users.items_path.open("r", encoding="utf-8") as f:
-            Users.items = json.load(f)
-
 
     @staticmethod
     def load_users():
@@ -87,7 +77,6 @@ class Users:
 
     @staticmethod
     def start():
-        Users.load_items()
         Users.load_users()
         Users.change_users_template()
         Users.run_autosaving()

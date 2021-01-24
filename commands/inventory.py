@@ -1,32 +1,40 @@
 from Users import Users
 from Inventory import Inventory
+from Items import Items
+import re
 
 def invoke(ctx):
-    text = ctx.message["text"].split()
-    if len(text) == 1: show(ctx)
-    elif len(text) == 3: remove(text, ctx)
+    text = ctx.message["text"]
+    drop_info = re.search("(?i)выкинуть \d+", text)
+    if drop_info is not None: drop(ctx, drop_info.group())
+    else: show(ctx)
 
 
 def show(ctx):
-    msg_text = "Ваш инвентарь: \n"
     user = Users.get_by_id(ctx.message["from_id"])
-    print(user["inventory"])
-    print(Users.items)
+
     if user["inventory"]:
-        i = 1
-        for item in user["inventory"]:
-            msg_text += str(i) + ". " + Users.items[str(item)]["name"] + "\n"
-            i += 1
-        ctx.reply(msg_text)
+        mapped_items = list(map(lambda item_id: Items.get_by_id(item_id)["name"], user["inventory"]))
+        numbers = range(1, len(mapped_items)+1)
+        items_with_numbers = list(map(lambda item, number: str(number)+'. '+item, mapped_items, numbers))
+        formatted_text = "\n".join(items_with_numbers)
+
+        ctx.reply("Ваш инвентарь: \n"+formatted_text)
     else:
         ctx.reply("Ваш инвентарь пуст!")
 
-def remove(text, ctx):
+def drop(ctx, drop_info):
     user = Users.get_by_id(ctx.message["from_id"])
-    if text[1].lower() == "выкинуть":
-        try:
-            if int(text[2]) <= 0: raise Exception()
-            ctx.reply("Вы выбросили {}".format(Users.items[str(user["inventory"][int(text[2]) - 1])]["name"]))
-            Inventory.remove(user["inventory"][int(text[2])-1], ctx.message["from_id"])
-        except Exception:
-            ctx.reply("Предмет не найден.")
+    drop_index = int(re.search("\d+", drop_info).group())-1
+
+    try:
+        if drop_index <= 0: raise Exception()
+
+        item_id = user["inventory"][drop_index]
+        item_data = Items.get_by_id(item_id)
+        is_removed = Inventory.remove(item_id, ctx.message["from_id"])
+
+        if(is_removed != True): raise Exception()
+        ctx.reply(f'Вы выбросили "{item_data["name"]}"')
+    except:
+        ctx.reply("Предмет не найден.")

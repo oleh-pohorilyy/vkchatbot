@@ -6,7 +6,7 @@ from Context import Context
 class LongPoll:
     commands = {}
 
-    def __init__(self, token, group_id, use_proxy):
+    def __init__(self, token, group_id, proxy):
         self.key = None
         self.server = None
         self.ts = 0
@@ -16,11 +16,10 @@ class LongPoll:
         self.id = group_id
         
         self.session = requests.Session()
-        if use_proxy: # for ukraine (configurated in config.json)
-            self.ip = 'XxEtd3:VDnW5o@181.177.84.41:9134'
+        if proxy["use_proxy"] == True: # for ukraine (configurated in config.json)
             self.proxies = {
-                'http': 'http://' + self.ip,
-                'https': 'http://' + self.ip
+                'http': 'http://' + proxy["ip"],
+                'https': 'http://' + proxy["ip"]
             }
             self.session.proxies.update(self.proxies)
         

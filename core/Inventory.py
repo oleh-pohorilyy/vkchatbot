@@ -1,7 +1,5 @@
 from Users import Users
-
-#Users
-#each user has inventory
+from Items import Items
 
 class Inventory:
 
