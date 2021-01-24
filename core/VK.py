@@ -1,14 +1,7 @@
 import requests
 import re
 from Users import Users
-
-class Context:
-
-    def __init__(self, send_message, obj):
-        print(obj)
-        self.message = obj.copy()
-        self.reply = lambda msg: send_message(self.message['peer_id'], msg)
-
+from Context import Context
 
 class LongPoll:
     commands = {}
@@ -76,16 +69,10 @@ class LongPoll:
             if event['type'] == 'message_new':
                 context = Context(self.send_message, event['object'])
                 Users.check_registered(context.message["from_id"])
-                text = event['object']['text']
+                text = context.message['text']
                 matches = list(filter(lambda x: re.search(x, text) is not None, list(self.commands.keys())))
                 if len(matches) != 0:
                     self.commands[matches[0]](context)
-
-    def create_context(self, obj):
-        return {
-            "reply": lambda msg: self.send_message(obj['peer_id'], msg),
-            "message": obj.copy()
-        }
 
     def command(self, regex, callback): 
         callback_type = str(type(callback))

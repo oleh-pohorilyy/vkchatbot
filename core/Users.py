@@ -2,7 +2,7 @@ import json
 import os
 from pathlib import Path
 import copy
-from Timer import timer_start
+from Timer import Timer
 
 
 class Users:
@@ -23,7 +23,7 @@ class Users:
     @staticmethod
     def load_users():
         if not os.path.exists(Users.users_path):
-            with open(Users.users_path, "w") as f:
+            with open(Users.users_path, "w", encoding="utf-8") as f:
                 json.dump([], f)
         with Users.usermap_path.open("r", encoding="utf-8") as f:
             Users.usermap = json.load(f)
@@ -62,6 +62,11 @@ class Users:
     def save_users_to_file():
         with open(Users.users_path, "w", encoding="utf-8") as f:
             json.dump(Users.list, f)
+            print('Users saved!')
+
+    @staticmethod
+    def run_autosaving():
+        Timer(Users.save_users_to_file, 60.0).start()
 
     @staticmethod
     def change_value(id, key, value):
@@ -78,11 +83,11 @@ class Users:
                     blank[key] = Users.usermap[key]
             user.clear()
             user.update(blank)
-            Users.save_users_to_file()
+        Users.save_users_to_file()
 
     @staticmethod
     def start():
         Users.load_items()
         Users.load_users()
         Users.change_users_template()
-        timer_start(Users.save_users_to_file)
+        Users.run_autosaving()
