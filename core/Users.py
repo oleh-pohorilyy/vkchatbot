@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 import copy
 from Timer import Timer
+from utils import u_find
 
 class Users:
     usermap = {}
@@ -26,10 +27,7 @@ class Users:
 
     @staticmethod
     def get_by_id(id):
-        for user in Users.list:
-            if user["id"] == id:
-                return user
-        return None
+        return u_find(lambda u, _: u["id"] == id, Users.list)
 
     @staticmethod
     def exists(id):

@@ -1,6 +1,8 @@
 def u_map(callback, array):
+    outarray = []
     for i in range(len(array)):
-        array[i] = callback(array[i], i)
+        outarray.append(callback(array[i], i))
+    return outarray
 
 
 def u_find(callback, array):

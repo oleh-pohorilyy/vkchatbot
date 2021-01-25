@@ -67,6 +67,9 @@ class LongPoll:
     def start(self):
         for event in self.listen():
             if event['type'] == 'message_new':
+                if event['object']["from_id"] < 0:
+                    continue
+                
                 context = Context(self.send_message, event['object'])
                 Users.check_registered(context.message["from_id"])
                 text = context.message['text']
