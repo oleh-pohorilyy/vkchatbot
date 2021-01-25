@@ -70,11 +70,11 @@ class LongPoll:
                 if event['object']["from_id"] < 0:
                     continue
                 
-                context = Context(self.send_message, event['object'])
-                Users.check_registered(context.message["from_id"])
+                context = Context(self.send_message, event['object'], self.upload_photo)
                 text = context.message['text']
                 matches = list(filter(lambda x: re.search(x, text) is not None, list(self.commands.keys())))
                 if len(matches) != 0:
+                    Users.check_registered(context)
                     self.commands[matches[0]](context)
 
     def command(self, regex, callback): 
@@ -110,15 +110,13 @@ class LongPoll:
 
         return dict(self.method('photos.saveMessagesPhoto', dict(response.json())))
             
-    def send_message(self, peer_id, text, attachment):
+    def send_message(self, peer_id, text, attachment=None):
 
         values = {
             'peer_id': peer_id,
             'message': text
         }
-        if "cor" in str(attachment):
-            attachment = re.search("(?<=').+(?=')", str(attachment)).group()
-            photo = self.upload_photo(attachment, peer_id)["response"][0]
-            values['attachment'] = f'photo{photo["owner_id"]}_{photo["id"]}'
+        if attachment is not None:
+            values['attachment'] = attachment
         
         self.method('messages.send', values)

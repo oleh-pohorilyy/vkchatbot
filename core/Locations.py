@@ -1,9 +1,10 @@
 from pathlib import Path
+from Assets import Assets
 import json
 
 class Locations:
     dictionary = {}
-    map_path = Path(__file__).parent / "../assets/img/world_map.jpg"
+    map_path = Assets.get_image("world_map.jpg")
     locations_path = Path(__file__).parent / "../database/locations.json"
 
     @staticmethod
