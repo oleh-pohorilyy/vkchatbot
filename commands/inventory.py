@@ -18,14 +18,19 @@ def invoke(ctx):
 
 def show(ctx):
     user = Users.get_by_id(ctx.message["from_id"])
-
+    fancy = {"consumable": "🧪",
+             "weapon": "🗡",
+             "armor": "🛡",
+             "accessory1": "💍",
+             "accessory2": "💍"
+             }
     if user["inventory"]:
-        mapped_items = list(map(lambda item_id: Items.get_by_id(item_id)["name"], user["inventory"]))
+        mapped_items = list(map(lambda item_id: "~" + fancy[Items.get_by_id(item_id)["type"]] + "~ " + Items.get_by_id(item_id)["name"], user["inventory"]))
         numbers = range(1, len(mapped_items)+1)
-        items_with_numbers = list(map(lambda item, number: str(number)+'. '+item, mapped_items, numbers))
-        formatted_text = "\n".join(items_with_numbers)
+        items_with_numbers = list(map(lambda item, number: "〔 " + str(number)+' 〕'+item, mapped_items, numbers))
+        formatted_text = "-~ໂƸ~⌘~Ʒໃ-~⫷x⫸-~ໂƸ~⌘~Ʒໃ-➵\n::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: : : : :\n" + "\n".join(items_with_numbers) + "\n::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: : : : :\n-~ໂƸ~⌘~Ʒໃ-~⫷o⫸-~ໂƸ~⌘~Ʒໃ-➵"
 
-        ctx.reply("Ваш инвентарь: \n"+formatted_text)
+        ctx.reply(formatted_text)
     else:
         ctx.reply("Ваш инвентарь пуст!")
 

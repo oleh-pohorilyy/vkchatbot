@@ -5,5 +5,6 @@
   "4": {"name": "Малое зелье маны", "effect":  "MP +20%", "type":  "consumable", "price":  "10s"},
   "5": {"name": "Среднее зелье маны", "effect":  "MP +35%", "type":  "consumable", "price":  "30s"},
   "6": {"name": "Большое зелье маны", "effect":  "MP +50%", "type":  "consumable", "price":  "80s"},
-  "7": {"name": "Руки", "type": "weapon", "price": null, "damage": [1, 7]}
+  "7": {"name": "Руки", "type": "weapon", "price": null, "damage": [1, 7]},
+  "8": {"name": "Деревянный меч", "type": "weapon", "price": "150s", "damage": [4, 16]}
 }

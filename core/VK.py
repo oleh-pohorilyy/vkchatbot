@@ -107,16 +107,15 @@ class LongPoll:
 
         return dict(self.method('photos.saveMessagesPhoto', dict(response.json())))
             
-    def send_message(self, peer_id, text, attachment = None):
+    def send_message(self, peer_id, text, attachment):
+
         values = {
             'peer_id': peer_id,
             'message': text
         }
-        
-        if attachment is not None:
-            photo_path = Path(__file__).parent / "../assets/img/world_map.jpg"
-            photo = self.upload_photo(photo_path, peer_id)["response"][0]
-            print(f'photo{photo["owner_id"]}_{photo["id"]}')
+        if "cor" in str(attachment):
+            attachment = re.search("(?<=').+(?=')", str(attachment)).group()
+            photo = self.upload_photo(attachment, peer_id)["response"][0]
             values['attachment'] = f'photo{photo["owner_id"]}_{photo["id"]}'
         
         self.method('messages.send', values)
