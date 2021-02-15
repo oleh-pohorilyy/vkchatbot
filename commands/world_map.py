@@ -1,6 +1,7 @@
 from Locations import Locations
 from Users import Users
+from Assets import Assets
 import re
 
 def invoke(ctx):
-    ctx.reply("", Users.get_by_id(ctx.message["from_id"])["media"]["world_map"])
+    ctx.reply("", Assets.dictionary["world_map.jpg"]["remote"])

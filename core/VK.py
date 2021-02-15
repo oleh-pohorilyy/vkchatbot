@@ -116,7 +116,8 @@ class LongPoll:
             'peer_id': peer_id,
             'message': text
         }
-        if attachment is not None:
+        
+        if attachment:
             values['attachment'] = attachment
         
         self.method('messages.send', values)

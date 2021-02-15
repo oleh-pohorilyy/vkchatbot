@@ -39,9 +39,9 @@ class Users:
         new_user = copy.deepcopy(Users.usermap)
         new_user["id"] = ctx.message["from_id"]
         new_user["bot_id"] = len(Users.list)+1
-        user_world_map = ctx.upload_photo(Assets.get_image("world_map.jpg"))
+        #user_world_map = ctx.upload_photo(Assets.get_image("world_map.jpg"))
         Users.list.append(new_user)
-        new_user["media"]["world_map"] = "photo" + user_world_map["owner_id"] + "_" + user_world_map["id"]
+        #new_user["media"]["world_map"] = "photo" + user_world_map["owner_id"] + "_" + user_world_map["id"]
         Users.save_users_to_file()
 
     @staticmethod

@@ -4,7 +4,7 @@ import json
 
 class Locations:
     dictionary = {}
-    map_path = Assets.get_image("world_map.jpg")
+    map_path = Assets.get_resource_path("world_map.jpg")
     locations_path = Path(__file__).parent / "../database/locations.json"
 
     @staticmethod
