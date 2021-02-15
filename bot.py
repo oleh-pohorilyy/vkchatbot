@@ -25,6 +25,7 @@ bot.command("(?i)^ник \w+", nickname.invoke)
 bot.command("(?i)(^инвентарь$)|(^инвентарь выкинуть \d+)|(^инвентарь сортировать$)|(^инвентарь сорт$)", inventory.invoke)
 bot.command("(?i)^карта$", world_map.invoke)
 bot.command("(?i)^перейти \d+", travel.invoke)
+bot.command("(?i)^зайчик", lambda ctx: ctx.reply(" ", Assets.get_resource_remote_path("zaichik2.jpg")))
 
 
 Assets.start(bot.upload_photo) # Loading assets

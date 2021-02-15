@@ -6,6 +6,7 @@ from Timer import Timer
 from utils import u_find
 from Assets import Assets
 
+
 class Users:
     usermap = {}
     list = []
@@ -38,17 +39,14 @@ class Users:
     def register(ctx):
         new_user = copy.deepcopy(Users.usermap)
         new_user["id"] = ctx.message["from_id"]
-        new_user["bot_id"] = len(Users.list)+1
-        #user_world_map = ctx.upload_photo(Assets.get_image("world_map.jpg"))
+        new_user["bot_id"] = len(Users.list) + 1
         Users.list.append(new_user)
-        #new_user["media"]["world_map"] = "photo" + user_world_map["owner_id"] + "_" + user_world_map["id"]
         Users.save_users_to_file()
 
     @staticmethod
     def check_registered(ctx):
         if not Users.exists(ctx.message["from_id"]):
             Users.register(ctx)
-
 
     @staticmethod
     def save_users_to_file():

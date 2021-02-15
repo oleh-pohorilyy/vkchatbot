@@ -1,6 +1,7 @@
 from Users import Users
 from Items import Items
 
+
 class Inventory:
 
     @staticmethod

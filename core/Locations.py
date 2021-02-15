@@ -2,6 +2,7 @@ from pathlib import Path
 from Assets import Assets
 import json
 
+
 class Locations:
     dictionary = {}
     map_path = Assets.get_resource_path("world_map.jpg")

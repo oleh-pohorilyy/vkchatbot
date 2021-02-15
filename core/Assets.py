@@ -2,8 +2,8 @@ import json
 import os
 from pathlib import Path
 
-class Assets:
 
+class Assets:
     dictionary = {}
 
     pathes = {
@@ -19,20 +19,21 @@ class Assets:
         for file_name in os.listdir(Assets.pathes["img"]):
             img_path = Assets.get_resource_path(file_name)
             try:
-                Assets.dictionary[file_name]["remote"]
-            except Exception as e:
-                Assets.dictionary[file_name] = {
-                    "remote": None,
-                    "local": img_path
-                }
-            finally:
+                Assets.dictionary[file_name]
+            except:
                 photo = upload_photo(img_path, 0)["response"][0]
-                Assets.dictionary[file_name]["remote"] = f'photo{photo["owner_id"]}_{photo["id"]}'
-                print(Assets.dictionary)
+                Assets.dictionary[file_name] = f'photo{photo["owner_id"]}_{photo["id"]}'
+
+        with open(Assets.pathes["assets"], "w", encoding="utf-8") as f:
+            json.dump(Assets.dictionary, f)
 
     @staticmethod
     def get_resource_path(name):
+        return Path(Assets.pathes["img"]) / name
+
+    @staticmethod
+    def get_resource_remote_path(name):
         try:
-            return Path(Assets.pathes["img"]) / name
+            return Assets.dictionary[name]
         except:
             return None

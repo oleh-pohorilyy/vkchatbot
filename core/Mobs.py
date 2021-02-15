@@ -1,6 +1,7 @@
 from pathlib import Path
 import json
 
+
 class Mobs:
     dictionary = {}
     mobs_path = Path(__file__).parent / "../database/mobs.json"
