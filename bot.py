@@ -32,5 +32,5 @@ Assets.start(bot.upload_photo) # Loading assets
 Items.start() # Loading items
 Locations.start() # Loading locations
 Mobs.start() # Loading mobs
-Users.start() # Loading users, running autosave, checking for new user structure 
+Users.start(bot.send_report) # Loading users, running autosave, checking for new user structure 
 bot.start()

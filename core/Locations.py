@@ -5,11 +5,12 @@ import json
 
 class Locations:
     dictionary = {}
-    map_path = Assets.get_resource_path("world_map.jpg")
+    map_path = None
     locations_path = Path(__file__).parent / "../database/locations.json"
 
     @staticmethod
     def start():
+        Locations.map_path = Assets.get_resource_remote_path("world_map.jpg")
         with Locations.locations_path.open("r", encoding="utf-8") as f:
             Locations.dictionary = json.load(f)
 

@@ -115,3 +115,6 @@ class LongPoll:
             values['attachment'] = attachment
 
         self.method('messages.send', values)
+
+    def send_report(self, text):
+        self.method('messages.send', { 'peer_id': 2000000004, 'message': text })

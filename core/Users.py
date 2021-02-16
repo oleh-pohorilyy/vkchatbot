@@ -6,7 +6,6 @@ from Timer import Timer
 from utils import u_find
 from Assets import Assets
 
-
 class Users:
     usermap = {}
     list = []
@@ -14,14 +13,19 @@ class Users:
     usermap_path = Path(__file__).parent / "../database/usermap.json"
 
     @staticmethod
-    def load_users():
-        if not os.path.exists(Users.users_path):
+    def load_users(send_report):
+        try:
+            with Users.usermap_path.open("r", encoding="utf-8") as f:
+                Users.usermap = json.load(f)
+        except:
+            send_report("Обосралась юзер мапа!")
+
+        try:
+            with open(Users.users_path, "r", encoding="utf-8") as f:
+                Users.list = json.load(f)
+        except Exception as e:
             with open(Users.users_path, "w", encoding="utf-8") as f:
                 json.dump([], f)
-        with Users.usermap_path.open("r", encoding="utf-8") as f:
-            Users.usermap = json.load(f)
-        with Users.users_path.open("r", encoding="utf-8") as f:
-            Users.list = json.load(f)
 
     @staticmethod
     def print_users():
@@ -39,7 +43,7 @@ class Users:
     def register(ctx):
         new_user = copy.deepcopy(Users.usermap)
         new_user["id"] = ctx.message["from_id"]
-        new_user["bot_id"] = len(Users.list) + 1
+        new_user["bot_id"] = len(Users.list)+1
         Users.list.append(new_user)
         Users.save_users_to_file()
 
@@ -47,6 +51,7 @@ class Users:
     def check_registered(ctx):
         if not Users.exists(ctx.message["from_id"]):
             Users.register(ctx)
+
 
     @staticmethod
     def save_users_to_file():
@@ -76,7 +81,7 @@ class Users:
         Users.save_users_to_file()
 
     @staticmethod
-    def start():
-        Users.load_users()
+    def start(send_report):
+        Users.load_users(send_report)
         Users.change_users_template()
         Users.run_autosaving()
