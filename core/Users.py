@@ -23,7 +23,7 @@ class Users:
         try:
             with open(Users.users_path, "r", encoding="utf-8") as f:
                 Users.list = json.load(f)
-        except Exception as e:
+        except:
             with open(Users.users_path, "w", encoding="utf-8") as f:
                 json.dump([], f)
 
@@ -48,7 +48,7 @@ class Users:
         Users.save_users_to_file()
 
     @staticmethod
-    def check_registered(ctx):
+    def register_if_not_registered(ctx):
         if not Users.exists(ctx.message["from_id"]):
             Users.register(ctx)
 

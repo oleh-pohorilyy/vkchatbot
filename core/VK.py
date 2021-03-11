@@ -70,7 +70,7 @@ class LongPoll:
                 text = context.message['text']
                 matches = list(filter(lambda x: re.search(x, text) is not None, list(self.commands.keys())))
                 if len(matches) != 0:
-                    Users.check_registered(context)
+                    Users.register_if_not_registered(context)
                     self.commands[matches[0]](context)
 
     def command(self, regex, callback):
