@@ -2,6 +2,6 @@ __all__ = [
     "profile", 
     "nickname", 
     "inventory", 
-    "world_map",
+    "locations",
     "travel"
 ]

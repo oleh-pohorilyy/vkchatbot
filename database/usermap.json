@@ -12,5 +12,10 @@
   "dropped_items": [],
   "max_inv_size": 15,
   "stats": {"maxhealth": 100, "maxmana": 50, "damage": [1, 7]},
-  "equipment": {"weapon": 7, "body": null, "legs": null, "accessory1": null, "accessory2": null}
+  "equipment": {"weapon": 7, "body": null, "legs": null, "accessory1": null, "accessory2": null},
+
+  "location_info": {
+    "id": 0,
+    "loot": []
+  }
 }
